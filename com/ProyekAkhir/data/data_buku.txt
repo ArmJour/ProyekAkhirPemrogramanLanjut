@@ -1,0 +1,2 @@
+BK002,Struktur Data & Algoritma,Dr. Linda,false
+BK003,Basis Data Lanjut,Prof. David,false
