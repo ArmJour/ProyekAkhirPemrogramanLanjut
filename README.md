@@ -43,6 +43,37 @@ Proyek ini adalah sistem manajemen perpustakaan sederhana yang dibangun dengan J
 ### Exceptions
 - Berbagai kelas exception kustom untuk penanganan kesalahan spesifik
 
+## Struktur Proyek
+
+Proyek ini disusun dalam beberapa package untuk memisahkan tanggung jawab setiap bagian kode.
+
+```
+src
+└── com
+    └── ProyekAkhir
+        ├── Main/                    # Titik masuk utama aplikasi
+        │   └── Main.java
+        ├── model/                  # Berisi kelas-kelas data (POJO)
+        │   ├── Buku.java
+        │   ├── Pengguna.java
+        │   ├── LogPeminjaman.java
+        │   └── LogDenda.java
+        ├── data/                           # Folder tempat semua data disimpan
+        │   ├── data_buku.txt
+        │   ├── data_pengguna.txt
+        │   ├── data_peminjaman.txt
+        │   └── data_denda.txt
+        ├── view/                   # GUI 
+        │   └── GUIManager.java
+        ├── service/                # Berisi logika bisnis utama
+        │   └── Perpustakaan.java
+        ├── repository/             # Berisi kelas untuk mengelola file
+        │   └── FileManager.java
+        └── exceptions/             # Berisi kelas-kelas custom exception
+            ├── BookCodeNotFoundException.java
+            └── (dan exception lainnya...)
+```
+
 ## Cara Menjalankan
 
 1. Pastikan Java Development Kit (JDK) terinstal
