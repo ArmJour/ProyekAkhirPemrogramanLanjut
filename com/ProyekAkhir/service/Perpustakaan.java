@@ -154,7 +154,7 @@ public class Perpustakaan {
             fileManager.hapusBaris(fileManager.filePathBuku, kodeBuku);
             System.out.println("SUCCESS: Buku dengan kode '" + kodeBuku + "' berhasil dihapus.");
         } else {
-            throw new BookCodeNotFoundException("Buku dengan kode '" + kodeBuku + "' tidak ditemukan.");
+            throw new BookCodeNotFoundException("EXCEPTION BookCodeNotFoundException: Buku dengan kode '" + kodeBuku + "' tidak ditemukan.");
         }
 
     }
@@ -262,7 +262,7 @@ public class Perpustakaan {
                 break;
             }
         }
-        if (logToUpdate == null) throw new ReturnBookNotBorrowed("Data peminjaman tidak ditemukan.");
+        if (logToUpdate == null) throw new ReturnBookNotBorrowed("EXCEPTION ReturnBookNotBorrowed: Data peminjaman tidak ditemukan.");
 
         if (logToUpdate.getTanggalKembali().toLocalDate().isAfter(logToUpdate.getTanggalJatuhTempo().toLocalDate())) {
             LogDenda denda = new LogDenda(logToUpdate.getKodePeminjaman(), logToUpdate.getTanggalPinjam(), logToUpdate.getTanggalJatuhTempo(), logToUpdate.getTanggalKembali(), logToUpdate.getNIMPengguna(), logToUpdate.getKodeBuku(), 0, false);
