@@ -1,4 +1,4 @@
-# ProyekAkhirPemrogramanLanjur
+# Proyek Akhir Pemrograman Lanjut
 
 # Sistem Manajemen Perpustakaan
 
@@ -40,6 +40,12 @@ Proyek ini adalah sistem manajemen perpustakaan sederhana yang dibangun dengan J
 ### Service
 - `Perpustakaan`: Menyediakan layanan untuk operasi perpustakaan
 
+### View
+- `Buku`: Merepresentasikan entitas buku
+- `Pengguna`: Merepresentasikan entitas pengguna (mahasiswa)
+- `LogPeminjaman`: Merepresentasikan log peminjaman buku
+- `LogDenda`: Merepresentasikan log denda
+
 ### Exceptions
 - Berbagai kelas exception kustom untuk penanganan kesalahan spesifik
 
@@ -64,7 +70,12 @@ src
         │   ├── data_peminjaman.txt
         │   └── data_denda.txt
         ├── view/                   # GUI 
-        │   └── GUIManager.java
+        │   ├── BookPael.java
+        │   ├── FinePanel.java
+        │   ├── LibraryGUI.java
+        │   ├── MenuPanel.java
+        │   ├── TransactionPanel.java
+        │   └── UserPanel.java
         ├── service/                # Berisi logika bisnis utama
         │   └── Perpustakaan.java
         ├── repository/             # Berisi kelas untuk mengelola file
@@ -79,7 +90,7 @@ src
 1. Pastikan Java Development Kit (JDK) terinstal
 2. Kompilasi semua file Java:
    ```
-   javac -d bin src/com/ProyekAkhir/*.java src/com/ProyekAkhir/Main/*.java src/com/ProyekAkhir/Model/*.java src/com/ProyekAkhir/repository/*.java src/com/ProyekAkhir/service/*.java src/com/ProyekAkhir/exceptions/*.java
+   javac -d bin src/com/ProyekAkhir/*.java src/com/ProyekAkhir/Main/*.java src/com/ProyekAkhir/Model/*.java src/com/ProyekAkhir/repository/*.java src/com/ProyekAkhir/service/*.java src/com/ProyekAkhir/exceptions/*.java src/com/ProyekAkhir/view/*.java
    ```
 3. Jalankan aplikasi:
    ```
@@ -102,30 +113,6 @@ src
 - Kode peminjaman harus 6 digit angka
 - Buku tidak boleh dalam status dipinjam
 
-## Contoh Penggunaan
-
-### Menambahkan Pengguna
-```java
-Perpustakaan perpustakaan = new Perpustakaan();
-perpustakaan.tambahPengguna(123456789012345L, "Nama Lengkap", "TIF");
-```
-
-### Menambahkan Buku
-```java
-ArrayList<String> pengarang = new ArrayList<>();
-pengarang.add("Dr. Linda");
-perpustakaan.tambahBuku("BK002", "Judul Buku", pengarang);
-```
-
-### Meminjam Buku
-```java
-perpustakaan.pinjamBuku(123456789012345L, "BK002");
-```
-
-### Mengembalikan Buku
-```java
-perpustakaan.kemalikanBuku(123456789012345L, "BK002");
-```
 
 ## Penanganan Kesalahan
 
@@ -134,7 +121,10 @@ Sistem menyediakan berbagai exception kustom untuk menangani skenario kesalahan:
 - `BukuSudahDipinjamException`: Buku sedang dipinjam
 - `DataAlreadyExistsExceptions`: Data sudah ada
 - `NIMNotFoundException`: Pengguna tidak ditemukan
-- Dan lainnya
+- `DeleteWhenRunningException`: Menghapus buku/pengguna yang masih dipinjam/meminjam
+- `FeeAlreadyPaidOrDoesNotExists`: Denda tidak ada atau sudah dibayar
+- `InputKosongException`: jika ingin menambah data namun isi masi kosong
+- `ReturnBookNotBorrowed`: Mengembalikan buku yang tidak dipinjam
 
 ## Kontributor
 
