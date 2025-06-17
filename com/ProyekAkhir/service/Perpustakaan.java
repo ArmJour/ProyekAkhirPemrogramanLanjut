@@ -19,6 +19,7 @@ public class Perpustakaan {
     private final FileManager fileManager;
     private int peminjamanCounter;
     
+    
     public Perpustakaan() {
         this.fileManager = new FileManager();
         this.listPengguna = new ArrayList<>(fileManager.memuatPengguna());
@@ -27,6 +28,15 @@ public class Perpustakaan {
         this.listDenda = new ArrayList<>(fileManager.memuatDenda());
         this.initializePeminjamanCounter();
     }
+
+    // =================================================================
+    // GETTERS
+    // =================================================================
+
+    public List<Pengguna> getListPengguna() { return this.listPengguna; }
+    public List<Buku> getListBuku() { return this.listBuku; }
+    public List<LogPeminjaman> getListPeminjaman() { return this.listPeminjaman; }
+    public List<LogDenda> getListDenda() { return this.listDenda; }
 
     // =================================================================
     // USER MANAGEMENT
@@ -41,8 +51,12 @@ public class Perpustakaan {
      */
 
     public void tambahPengguna(Long nim, String nama, String prodi) throws DataAlreadyExistsExceptions {
-        if(listPengguna.stream().anyMatch(p -> p.getNIM() == nim)) {
-            throw new DataAlreadyExistsExceptions("EXCEPTION DataAlreadyExistsExceptions: Pengguna dengan NIM '" + nim + "' sudah terdaftar.");
+        for (Pengguna p : listPengguna) {
+            
+            if (p.getNIM() == nim) {
+                throw new DataAlreadyExistsExceptions("EXCEPTION DataAlreadyExistsExceptions: Pengguna dengan NIM '" + nim + "' sudah ada.");
+            }
+            
         }
         try {
             Pengguna penggunaBaru = new Pengguna(nim, nama, prodi);
@@ -245,7 +259,7 @@ public class Perpustakaan {
      * @throws ReturnBookNotBorrowed if the book was not borrowed by the user.
      */
 
-    public void kemalikanBuku(long nim, String kodeBuku) throws NIMNotFoundException, BookCodeNotFoundException, ReturnBookNotBorrowed {
+    public void kembalikanBuku(long nim, String kodeBuku) throws NIMNotFoundException, BookCodeNotFoundException, ReturnBookNotBorrowed {
         
         Pengguna pengguna = null; 
         for (Pengguna p : listPengguna) if (p.getNIM() == nim) pengguna = p;
@@ -264,8 +278,21 @@ public class Perpustakaan {
         }
         if (logToUpdate == null) throw new ReturnBookNotBorrowed("EXCEPTION ReturnBookNotBorrowed: Data peminjaman tidak ditemukan.");
 
+        logToUpdate.setTanggalKembali();
+        
+        buku.setStatusPeminjaman(false);
+
         if (logToUpdate.getTanggalKembali().toLocalDate().isAfter(logToUpdate.getTanggalJatuhTempo().toLocalDate())) {
-            LogDenda denda = new LogDenda(logToUpdate.getKodePeminjaman(), logToUpdate.getTanggalPinjam(), logToUpdate.getTanggalJatuhTempo(), logToUpdate.getTanggalKembali(), logToUpdate.getNIMPengguna(), logToUpdate.getKodeBuku(), 0, false);
+             LogDenda denda = new LogDenda(
+                logToUpdate.getKodePeminjaman(), 
+                logToUpdate.getTanggalPinjam(), 
+                logToUpdate.getTanggalJatuhTempo(), 
+                logToUpdate.getTanggalKembali(),
+                logToUpdate.getNIMPengguna(), 
+                logToUpdate.getKodeBuku(), 
+                0, 
+                false
+            );
             denda.hitungDenda();
             listDenda.add(denda);
             System.out.println("WARNING: Pengembalian terlambat! Denda yang dikenakan: Rp" + denda.getBesarDenda());
@@ -284,7 +311,7 @@ public class Perpustakaan {
      * @throws Exception if the fine for the given loan is not found or has already been paid.
      */
     
-    public void bayarDenda(String kodePeminjaman) throws Exception {
+    public void bayarDenda(String kodePeminjaman) throws FeeAlreadyPaidOrDoesNotExists {
         LogDenda dendaToPay = null;
         for (LogDenda denda : listDenda) {
             if (denda.getKodePeminjaman().equals(kodePeminjaman) && !denda.isStatusPembayaran()) {
@@ -299,7 +326,7 @@ public class Perpustakaan {
 
             fileManager.menulisFile(fileManager.filePathDenda, dendaToPay.getKodePeminjaman(), dendaToPay.toFileString());
         } else {
-            throw new Exception("Denda untuk kode peminjaman '" + kodePeminjaman + "' tidak ditemukan atau sudah lunas.");
+            throw new FeeAlreadyPaidOrDoesNotExists("EXCEPTION FeeAlreadyPaidOrDoesNotExists: Denda untuk kode peminjaman '" + kodePeminjaman + "' tidak ditemukan atau sudah lunas.");
         }
     }
     
