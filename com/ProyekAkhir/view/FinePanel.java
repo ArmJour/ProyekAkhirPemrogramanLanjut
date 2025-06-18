@@ -1,10 +1,12 @@
 package com.ProyekAkhir.view;
 
 import com.ProyekAkhir.service.Perpustakaan;
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 public class FinePanel extends JPanel {
     private Perpustakaan perpustakaan;
@@ -34,6 +36,13 @@ public class FinePanel extends JPanel {
         
         add(new JScrollPane(fineTable), BorderLayout.CENTER);
         add(buttonPanel, BorderLayout.SOUTH);
+
+        this.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentShown(ComponentEvent e) {
+                refreshFineTable();
+            }
+        });
     }
     
     private void refreshFineTable() {
