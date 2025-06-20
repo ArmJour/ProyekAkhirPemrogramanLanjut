@@ -11,7 +11,7 @@ public class LogDenda extends LogPeminjaman {
 
     public LogDenda(String kodePeminjaman, LocalDateTime tanggalPinjam, LocalDateTime tanggalJatuhTempo, LocalDateTime tanggalKembali,
                     String nimPengguna, String kodeBuku, int besarDenda, boolean statusPembayaran) {
-        super(kodePeminjaman, nimPengguna, kodeBuku, tanggalPinjam, tanggalJatuhTempo, tanggalKembali); // Correct parameters passed to superclass
+        super(kodePeminjaman, nimPengguna, kodeBuku, tanggalPinjam, tanggalJatuhTempo, tanggalKembali); 
         this.besarDenda = besarDenda;
         this.statusPembayaran = statusPembayaran;
     }
