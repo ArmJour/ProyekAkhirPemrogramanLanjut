@@ -1,2 +1,21 @@
-BK002,Struktur Data & Algoritma,Dr. Linda,false
-BK003,Basis Data Lanjut,Prof. David,false
+BK001,Penulis Kaca,Dafid Rosydan;Valentinus Marvel,true
+BK002,Struktur Data & Algoritma,Dr. Linda,true
+BK003,Basis Data Lanjut,Prof. David,true
+BK004,Penulis Dinding,Valentinus Dafid,true
+BK005,Jaringan Komputer Dasar,Andi Purnomo,true
+BK006,Pengantar Kecerdasan Buatan,Dr. Siti Rahma;Prof. Budi Santoso,false
+BK007,Clean Code: A Handbook of Agile Software,Robert C. Martin,false
+BK008,Sistem Operasi Modern,Andrew S. Tanenbaum,true
+BK009,Matahari,Tere Liye,false
+BK010,Desain Grafis untuk Pemula,Rian Hidayat,false
+BK011,Manajemen Proyek Perangkat Lunak,Dr. Indah Lestari,false
+BK012,Laskar Pelangi,Andrea Hirata,false
+BK013,Cloud Computing & Virtualization,Eko Kurniawan Khannedy,true
+BK014,Komet,Tere Liye,true
+BK015,Pemrograman Python dari Nol,Andi Setiawan,false
+BK016,Bumi,Tere Liye,true
+BK017,Filosofi Teras,Henry Manampiring,false
+BK018,Kalkulus Dasar,Dr. Iwan Pranoto,false
+BK019,Keamanan Siber,Budi Sutejo,false
+BK020,Machine Learning untuk Praktisi,Dian Anggraini;Dr. Bambang,true
+
